@@ -45,15 +45,28 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         title: 'Hello World',
         home: Scaffold(
-            appBar: AppBar(title: Text('Ola mundo')),
-            body: Column(children: <Widget>[
-              Question(questions[questionIndex]['question']),
-              ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
-                  .map((question) {
-                return OptionQuestion(
-                    () => answerQuestion(question['value']), question['name']);
-              }),
-              Text(totalPoints.toString()),
-            ])));
+          appBar: AppBar(title: Text('Ola mundo')),
+          body: questionIndex < questions.length
+              ? Column(children: <Widget>[
+                  Question(questions[questionIndex]['question']),
+                  ...(questions[questionIndex]['answers']
+                          as List<Map<String, Object>>)
+                      .map((question) {
+                    return OptionQuestion(
+                        () => answerQuestion(question['value']),
+                        question['name']);
+                  }),
+                ])
+              : Container(
+                  width: double.infinity,
+                  child: Text(
+                    totalPoints.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 50),
+                  ),
+                ),
+        ));
   }
 }
+
+// usar botao flutuante para resetar os valores
